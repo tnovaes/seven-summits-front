@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import styled from "styled-components"
+import HomePage from "./pages/HomePage"
+import FlightsSearchPage from "./pages/FlightsSearchPage"
+import HotelsSearchPage from "./pages/HotelsSearchPage"
+import FlightPageById from "./pages/FlightPageById"
+import HotelPageById from "./pages/HotelPageById"
+import { TravelProvider } from "./context/TravelContext.js"
 
-function App() {
+
+
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <PagesContainer>
+      <BrowserRouter>
+        <TravelProvider>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/flights/:id" element={<FlightsSearchPage />} />
+            <Route path="/hotels/:id" element={<HotelsSearchPage />} />
+            <Route path="/flights/id/:id" element={<FlightPageById />} />
+            <Route path="/hotels/id/:id" element={<HotelPageById />} />
+          </Routes>
+        </TravelProvider>
+      </BrowserRouter>
+    </PagesContainer>
+  )
 }
 
-export default App;
+const PagesContainer = styled.main`
+  background-color: #ffffff;
+  max-width:100vw;
+  max-height: 100vh;
+`
